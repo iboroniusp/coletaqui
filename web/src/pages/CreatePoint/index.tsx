@@ -82,6 +82,7 @@ const CreatePoint = () => {
         name: '',
         email: '',
         whatsapp: '',
+        rua: '',
     });
 
     // Arquivo enviado no upload no dropzone (Armazena informação do tipo File (objeto global do javascript) )
@@ -185,7 +186,7 @@ const CreatePoint = () => {
         // O funcionamento padrão do formulário no HTML envia o usuário em uma outra tela, para evitar isso:
         event.preventDefault();
 
-        const { name, email, whatsapp } = formData;
+        const { name, email, whatsapp, rua } = formData;
         const uf = selectedUf;
         const city = selectedCity;
         const [ latitude, longitude ] = selectedPosition;
@@ -197,6 +198,7 @@ const CreatePoint = () => {
             data.append('name', name);
             data.append('email', email);
             data.append('whatsapp', whatsapp);
+            data.append('rua', rua);
             data.append('uf', uf);
             data.append('city', city);
             data.append('latitude', String(latitude));
@@ -218,19 +220,16 @@ const CreatePoint = () => {
     return (
         <div id="page-create-point">
             <header>
-                <img src={logo} alt="Ecoleta"/>
+                { /*<img src={logo} alt="Ecoleta"/>*/}
 
                 <Link to="/">
                     <FiArrowLeft />
-                    Voltar para home
+                    Home
                 </Link>
             </header>
 
             <form onSubmit={handleSubmit}>
                 <h1>Cadastro do <br />ponto de coleta</h1>
-
-                {/* {<Dropzone />} */}
-                <Dropzone onFileUploaded={setSelectedFile}/>
 
                 {/* ----- DADOS ----- */}
                 <fieldset>
@@ -268,23 +267,58 @@ const CreatePoint = () => {
                             />
                         </div>
                     </div>
+
+                    {/* {<Dropzone />} */}
+                    <Dropzone onFileUploaded={setSelectedFile}/>
                 </fieldset>
 
                 {/* ----- ENDEREÇO ----- */}
                 <fieldset>
                     <legend>
                         <h2>Endereço</h2>
-                        <span>Selecione o endereço no mapa</span>
+                        {/*<span>Selecione o endereço no mapa</span>*/}
                     </legend>
 
-                    <Map center={initialPosition} zoom={15} onClick={handleMapClick}>
+                    <div className="field">
+                        <label htmlFor="rua">Logradouro</label>
+                        <input 
+                            type="text"
+                            name="rua"
+                            id="rua"
+                            onChange={handleInputChange}
+                        />
+                    </div>
+
+                    <div className="field-group">
+                        <div className="field">
+                            <label htmlFor="cep">CEP</label>
+                            <input 
+                                type="text"
+                                name="cep"
+                                id="cep"
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                    
+                        <div className="field">
+                            <label htmlFor="pontoReferencia">Ponto de Referência</label>
+                            <input 
+                                type="text"
+                                name="pontoReferencia"
+                                id="pontoReferencia"
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                    </div>
+
+                    {/* <Map center={initialPosition} zoom={15} onClick={handleMapClick}>
                         <TileLayer
                             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
 
                         <Marker position={selectedPosition} />
-                    </Map>
+    </Map> */}
 
                     <div className="field-group">
                         <div className="field">
