@@ -218,7 +218,7 @@ const CreatePoint = () => {
     }
 
     return (
-        <div id="page-create-point">
+        <div id="login-page">
             <header>
                 { /*<img src={logo} alt="Ecoleta"/>*/}
 
@@ -229,158 +229,44 @@ const CreatePoint = () => {
             </header>
 
             <form onSubmit={handleSubmit}>
-                <h1>Dados de<br />local para descarte</h1>
+                {/* <h1>Dados de<br />local para descarte</h1> */}
 
                 {/* ----- DADOS ----- */}
+                
                 <fieldset>
-                    {/* <legend>
-                        <h2>Dados</h2>
-                    </legend> */}
-
                     <div className="field">
-                        <label htmlFor="name">Nome do estabelecimento</label>
+                        <label htmlFor="email">E-mail:</label>
                         <input 
                             type="text"
-                            name="name"
-                            id="name"
+                            name="email"
+                            id="email"
                             onChange={handleInputChange}
                         />
                     </div>
-
-                    <div className="field-group">
-                        <div className="field">
-                            <label htmlFor="email">E-mail</label>
-                            <input 
-                                type="text"
-                                name="email"
-                                id="email"
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                        <div className="field">
-                            <label htmlFor="whatsapp">Celular</label>
-                            <input 
-                                type="text"
-                                name="whatsapp"
-                                id="whatsapp"
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                    </div>
-
-                    {/* {<Dropzone />} */}
-                    <Dropzone onFileUploaded={setSelectedFile}/>
-                </fieldset>
-
-                {/* ----- ENDEREÇO ----- */}
-                <fieldset>
-                    <legend>
-                        <h2>Endereço</h2>
-                        {/*<span>Selecione o endereço no mapa</span>*/}
-                    </legend>
-
                     <div className="field">
-                        <label htmlFor="rua">Logradouro</label>
+                        <label htmlFor="password">Senha:</label>
                         <input 
                             type="text"
-                            name="rua"
-                            id="rua"
+                            name="password"
+                            id="password"
                             onChange={handleInputChange}
                         />
                     </div>
-
-                    <div className="field-group">
-                        <div className="field">
-                            <label htmlFor="cep">CEP</label>
-                            <input 
-                                type="text"
-                                name="cep"
-                                id="cep"
-                                onChange={handleInputChange}
-                            />
-                        </div>
                     
-                        <div className="field">
-                            <label htmlFor="pontoReferencia">Ponto de Referência</label>
-                            <input 
-                                type="text"
-                                name="pontoReferencia"
-                                id="pontoReferencia"
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                    </div>
-
-                    {/* <Map center={initialPosition} zoom={15} onClick={handleMapClick}>
-                        <TileLayer
-                            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                        />
-
-                        <Marker position={selectedPosition} />
-    </Map> */}
-
                     <div className="field-group">
                         <div className="field">
-                            <label htmlFor="uf">Estado (UF)</label>
-                            <select 
-                                name="uf" 
-                                id="uf" 
-                                value={selectedUf} 
-                                onChange={handleSelectedUf}
-                            > 
-                                <option value="0" >Selecione uma UF</option>
-                                {ufs.map(uf => (
-                                    <option key={uf} value={uf}>{uf} </option>
-                                ))}
-                            </select>
+                            <button type="submit">
+                                Entrar
+                            </button>
                         </div>
                         <div className="field">
-                            <label htmlFor="city">Cidade</label>
-                            <select 
-                                name="city" 
-                                id="city"
-                                value={selectedCity}
-                                onChange={handleSelectedCity}
-                            >
-                                <option value="0">Selecione uma cidade</option>
-                                {cities.map(city => (
-                                    <option key={city} value={city}>{city} </option>
-                                ))}
-                            </select>
+                            <button type="submit">
+                                Esqueci minha senha
+                            </button>
                         </div>
                     </div>
                 </fieldset>
-
-                {/* ----- ÍTENS DE COLETA (carregar da API) ----- */}
-                <fieldset>
-                    <legend>
-                        <h2>Ítens de coleta</h2>
-                        <span>Selecione um ou mais itens abaixo</span>
-                    </legend>
-                    <ul className="items-grid">
-                        {/* Precisamos repetir o li pelo número de itens que buscamos na API 
-                            ao inves de escrever (item => { return () }) podemos escrever direto (item => () )
-                            
-                            Por ser um map o primeiro elemento precisa ter uma key - valor unico do item - (pro React encontrar o elemento na hora de atualiza-lo de forma mais rapida
-                            
-                            Criar arrow function Se escrevessemos <li key={item.id} onClick={handleSelectItem(item.id)}> ele executaria a função e não utilizaria ela como parametro */}
-                        {items.map(item => (
-                            <li 
-                                key={item.id} 
-                                onClick={() => handleSelectedItem(item.id)}
-                                className={selectedItems.includes(item.id) ? 'selected' : ''}
-                            >
-                                <img src={item.image_url} alt={item.title}/>
-                                <span>{item.title}</span>
-                            </li>
-                        ))} 
-                    </ul>
-                </fieldset>
-
-                <button type="submit">
-                    Cadastrar ponto de coleta
-                </button>
+                
             </form>
         </div>
     );
