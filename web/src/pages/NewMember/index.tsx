@@ -2,7 +2,6 @@ import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import { Link, useHistory } from 'react-router-dom'; // navegar de um componente pra outro sem ter botão
 
 import './styles.css';
-import { FiLogIn } from 'react-icons/fi';
 
 import logo from '../../assets/logo.svg';
 
@@ -219,7 +218,7 @@ const CreatePoint = () => {
     }
 
     return (
-        <div id="login-page">
+        <div id="cadastro-page">
             <header>
                 { /*<img src={logo} alt="Ecoleta"/>*/}
 
@@ -235,6 +234,15 @@ const CreatePoint = () => {
                 {/* ----- DADOS ----- */}
                 
                 <fieldset>
+                    <div className="field">
+                        <label htmlFor="name">Nome</label>
+                        <input 
+                            type="text"
+                            name="name"
+                            id="name"
+                            onChange={handleInputChange}
+                        />
+                    </div>
                     <div className="field">
                         <label htmlFor="email">E-mail:</label>
                         <input 
@@ -254,25 +262,11 @@ const CreatePoint = () => {
                         />
                     </div>
                     
-                    <div className="field-group">
-                        <div className="field">
-                            <button type="submit">
-                                Entrar
-                            </button>
-                        </div>
-                        <div className="field">
-                            <button type="submit">
-                                Esqueci minha senha
-                            </button>
-                        </div>
+                    <div className="field">
+                        <button type="submit">
+                            Cadastrar
+                        </button>
                     </div>
-                    <Link to="/newmember">
-                        <div className="field">
-                            <button type="submit">
-                                Cadastro
-                            </button>
-                        </div>
-                    </Link>                    
                 </fieldset>
                 
             </form>
