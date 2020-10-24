@@ -68,6 +68,7 @@
 
 #login-page form .field-group {
   flex: 1;
+  height: 60px;
   display: flex;
 }
 
@@ -80,6 +81,7 @@
 }
 
 #login-page form .field input[type=text],
+#login-page form .field input[type=password],
 #login-page form .field input[type=email],
 #login-page form .field input[type=number] {
   flex: 1;
@@ -147,6 +149,8 @@
 
 #login-page form button {
   background: var(--primary-color);
+  width: 100%;
+  height: 56px;
   border-radius: 8px;
   color: #FFF;
   font-size: 20px;
