@@ -5,7 +5,7 @@ import { auth } from '../../firebase.js'
 
 import './styles.css';
 
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/logo_coletaqui.jpeg';
 
 
 const Home = () => {
@@ -87,7 +87,7 @@ const Home = () => {
         <div id="page-home">
             <div className="content">
                 <header>
-                    <img src={logo} alt="Coleta aqui"/>
+                    <img src={logo} alt="ColetAqui"/>
                     {showUser ? <UserView /> : null}
                 </header>
 
