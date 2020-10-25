@@ -9,23 +9,27 @@ import { FiArrowLeft } from 'react-icons/fi';
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    const hist = useHistory();
+    //const [error, setError] = useState(null);
     
+    const hist = useHistory();
+
     async function signInWithEmailAndPasswordHandler(event: FormEvent) {
         event.preventDefault();
         try {
-            await auth.signInWithEmailAndPassword(email, password)
-            hist.push('/');    
+            await auth.sendPasswordResetEmail(email)
+            alert("As instruções para recuperação da senha foram enviados para seu email")
+            hist.push('/login');    
         }
         catch(error) {
-            alert('Usuário ou email inválido. Verifique e tente novamente');
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            if (errorCode === 'auth/invalid-email') {
+                alert('Email inválido');
+            } else {
+                alert(errorMessage);
+            }
         }
     } 
-
-    function doRegister() {
-
-    }
             
     function handleInputChange(event: ChangeEvent<HTMLInputElement>){
         const { name, value } = event.target
@@ -39,18 +43,18 @@ const SignIn = () => {
     }
 
     return (
-        <div id="login-page">
+        <div id="forgot-password-page">
             <header>
-                <Link to="/">
+                <Link to="/login">
                     <FiArrowLeft />
-                    Home
+                    Login
                 </Link>
             </header>
 
             <form onSubmit={signInWithEmailAndPasswordHandler}>
                 <fieldset>
                     <div className="field">
-                        <label htmlFor="email">E-mail:</label>
+                        <label htmlFor="email">Digite seu e-mail:</label>
                         <input 
                             type="text"
                             name="email"
@@ -58,36 +62,12 @@ const SignIn = () => {
                             onChange={handleInputChange}
                         />
                     </div>
-                    <div className="field">
-                        <label htmlFor="password">Senha:</label>
-                        <input 
-                            type="password"
-                            name="password"
-                            id="password"
-                            onChange={handleInputChange}
-                        />
-                    </div>
-
-                    <div className="field">
-                        <button type="submit">
-                                Entrar
-                        </button>
-                    </div>
-                    
+                
                     <div className="field-group">
                         <div className="field">
-                            <Link to="/newmember">
-                                <button type="button">
-                                    Cadastrar
-                                </button>
-                            </Link>
-                        </div>
-                        <div className="field">
-                            <Link to="/forgot-password">
-                                <button type="button">
-                                    Esqueci minha senha
-                                </button>
-                            </Link>
+                            <button type="submit">
+                                Recuperar senha
+                            </button>
                         </div>
                     </div>
                 </fieldset>

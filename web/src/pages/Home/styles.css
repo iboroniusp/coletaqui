@@ -17,7 +17,13 @@
   }
   
   #page-home .content header {
+    width: 100%;
     margin: 48px 0 0;
+  }
+
+  #page-home .userview {
+    right: 0px;
+    float: right;
   }
   
   #page-home .content main {
@@ -54,8 +60,37 @@
   
     margin-top: 40px;
   }
+
+  #page-home .content main button {
+    width: 100%;
+    max-width: 360px;
+    height: 72px;
+    font-size: medium;
+    border: none;
+    background: #2FB86E;
+    border-radius: 8px;
+    text-decoration: none;
+  
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  
+    margin-top: 40px;
+  }
   
   #page-home .content main a span {
+    display: block;
+    background: rgba(0, 0, 0, 0.08);
+    width: 72px;
+    height: 72px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+  }
+
+  #page-home .content main button span {
     display: block;
     background: rgba(0, 0, 0, 0.08);
     width: 72px;
@@ -72,8 +107,20 @@
     width: 20px;
     height: 20px;
   }
+
+  #page-home .content main button span svg {
+    color: #FFF;
+    width: 20px;
+    height: 20px;
+  }
   
   #page-home .content main a strong {
+    flex: 1;
+    text-align: center;
+    color: #FFF;
+  }
+
+  #page-home .content main button strong {
     flex: 1;
     text-align: center;
     color: #FFF;
@@ -82,6 +129,12 @@
   #page-home .content main a:hover {
     background: #2FB86E;
   }
+
+  #page-home .content main button:hover {
+    background: #218d54;
+  }
+
+  button:focus {outline:0;}
   
   @media(max-width: 900px) {
     #page-home .content {
