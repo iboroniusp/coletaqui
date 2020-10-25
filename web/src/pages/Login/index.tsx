@@ -16,7 +16,6 @@ const SignIn = () => {
         event.preventDefault();
         try {
             await auth.signInWithEmailAndPassword(email, password)
-            alert("Login Efetuado com sucesso")
             hist.push('/');    
         }
         catch(error) {

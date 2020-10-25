@@ -33,10 +33,6 @@ const Home = () => {
           });
     }
 
-    function handleChange(event: ChangeEvent<HTMLSelectElement>) {
-        alert(event.target.value)
-    }
-
     function setUserEmail(userName: string | null) {
         var element = document.getElementById("userEmail") as HTMLButtonElement
         if (userName != null && element != null) {
