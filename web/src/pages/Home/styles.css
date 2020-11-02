@@ -21,6 +21,11 @@
     margin: 48px 0 0;
   }
 
+  #page-home .content header img {
+    width: 20%;
+    margin: 48px 0 0;
+  }
+
   #page-home .userview {
     right: 0px;
     float: right;
