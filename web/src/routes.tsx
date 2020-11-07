@@ -12,6 +12,7 @@ import CreatePoint from './pages/CreatePoint';
 import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
 import NewMember from './pages/NewMember';
+import MyPoints from './pages/MyPoints';
 
 const Routes = () => {
     return (
@@ -21,6 +22,7 @@ const Routes = () => {
             <Route component={Login} path="/login" />
             <Route component={ForgotPassword} path="/forgot-password" />
             <Route component={NewMember} path="/newmember" />
+            <Route component={MyPoints} path="/points" />
         </BrowserRouter>
     );
 }

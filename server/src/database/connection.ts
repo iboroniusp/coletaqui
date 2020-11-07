@@ -1,10 +1,5 @@
 import knex from 'knex';
-import path from 'path'; // para unir caminhos de acordo com seu OS
-
-/* -----------------------[ CONEXÃO COM O BANDO DE DADOS ]-------------------------
-    objeto com as configurações do nosso bd
-    arquivo que iremos armazenar o arquivo do bd
-    __dirname: caminho pro diretorio do arquivo que ta executando ele */
+import path from 'path';
 
 const connection = knex({
     client: 'sqlite3',

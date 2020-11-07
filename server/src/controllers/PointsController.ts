@@ -42,6 +42,27 @@ class PointsController {
         return response.json(serializedPoints);
     }
 
+    async userPoints (request: Request, response: Response) {
+        const { city, uf, items } = request.query;
+
+        const points = await knex('points')
+        .join('point_items', 'points.id', '=', 'point_items.point_id')
+        .distinct()
+        .select('points.*') 
+
+        // SERIALIZAÇÃO para permitir que o mobile acesse a imagem com o caminho 
+        const serializedPoints = points.map(point => {
+            // MAP: percorre os points e retorna da maneira que você quiser
+            return {
+                ...point, // retornar todos os dados do ponto
+                // image_url: `http://192.168.15.15:3333/uploads/${point.image}`, //adicionar o campo image_url com o endereço correto pro mobile que precisa disso já que nao consegue usar apenas o nome da imagem salva em uploads que é um nome com hash
+                image_url: `http://${IPAddress}:3333/uploads/${point.image}`, //adicionar o campo image_url com o endereço correto pro mobile que precisa disso já que nao consegue usar apenas o nome da imagem salva em uploads que é um nome com hash
+            };
+        });
+
+        return response.json(serializedPoints);
+    }
+
 
     /* ~ Listar Ponto de Coleta específico ~*/
     async show (request: Request, response: Response) {
