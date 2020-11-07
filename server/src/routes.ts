@@ -15,14 +15,12 @@ const upload = multer(multerConfig);
 const pointsController = new PointsController();
 const itemsController = new ItemsController();
 
-/* Listar Itens */
 routes.get('/items', itemsController.index);
 
+routes.get('/points', pointsController.index);
 
-/* Listar Pontos de Coleta (Filtro por Estado/Cidade/items) */
-routes.get('/points', pointsController.index);      // query param
+routes.get('/user-points', pointsController.userPoints);
 
-/* Listar Ponto de Coleta específico */
 routes.get('/points/:id', pointsController.show);   // request param
 
 /* Criar Pontos de Coleta */
@@ -42,33 +40,11 @@ routes.post(
             city: Joi.string().required(),
             uf: Joi.string().required().max(2),
             items: Joi.string().regex(/^[\s,\d+]+$/).required(), 
-            /* REGEX: validação para receber numeros entre virgulas e espaços 
-                / /: expressão regular
-                \d: checa números
-                \s: checa espaços
-                ,: chega virgula
-                +: o que vier imediatamente antes dele deve aparecer 1 ou mais vezes; o mesmo que {1,}
-                ^: checa desde o inicio
-                $: checa a partir do final
-                ?: o que vier imediatamente antes dele deve aparecer 0 ou 1 vez na expressão.
-                */
-            //imagem não validamos pelo joi mas sim pelo file filter no multer
         })
     }, {
-        abortEarly: false, // faz todas as validações ao mesmo tempo
+        abortEarly: false, 
     }),
     pointsController.create
-);    // request body
-
-/* DESACOPLAMENTO (Patterns)
-    Controllers: abstrair o conteúdo dentro de rotas. Um controller para cada entidade/recurso
-        - INDEX: listagem 
-        - SHOW: exibir um único registro
-        - CREATE, UPDATE, DELETE 
-
-    Melhorias:
-    - Service Pattern: Abstrair lógica dentro dos Controllers
-    - Repository Patter (Data Mapper): Abstrair lógica do banco de dados
-*/
+);
 
 export default routes;

@@ -55,6 +55,10 @@ const Home = () => {
         hist.push("/create-point")
     }
 
+    async function handleMyPointsClick() {
+        hist.push("/points")
+    }
+
     const UserView = () => (
         <div id="userview" className="userview">
             <text id="userEmail"/>
@@ -62,7 +66,7 @@ const Home = () => {
                 Logout
             </button>
         </div>
-      )
+    )
 
     const LoginButton = () => (
         <Link to="/login">
@@ -73,13 +77,13 @@ const Home = () => {
         </Link>
     )
 
-    const CreatePointButton = () => (
+    const MyPointsButton = () => (
         <button  
-            onClick={handleCreatePointClick}>
+            onClick={handleMyPointsClick}>
             <span >
                 <FiLogIn />
             </span>
-            <strong>Insira um ponto de coleta</strong>
+            <strong>Meus pontos de coleta</strong>
         </button>
     )
 
@@ -95,7 +99,7 @@ const Home = () => {
                     <h1>Busque locais para descarte de resíduos</h1>
                     <p>Encontre pontos de coleta: descartar ecologicamente agora ficou bem mais fácil!</p>
 
-                    {showUser ? <CreatePointButton /> : null}
+                    {showUser ? <MyPointsButton /> : null}
                     {showUser ? null : <LoginButton />}
                 </main>
             </div>
