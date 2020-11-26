@@ -72,7 +72,7 @@
     height: 72px;
     font-size: medium;
     border: none;
-    background: #2FB86E;
+    background: #49020a;
     border-radius: 8px;
     text-decoration: none;
   
@@ -132,11 +132,11 @@
   }
   
   #page-home .content main a:hover {
-    background: #2FB86E;
+    background: #49020a;
   }
 
   #page-home .content main button:hover {
-    background: #218d54;
+    background: #49020a;
   }
 
   button:focus {outline:0;}
