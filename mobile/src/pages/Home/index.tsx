@@ -17,8 +17,17 @@ const Home = () => {
   const [city, setCity] = useState('');
   const navigation = useNavigation(); 
 
-  function handleNavigateToPoints() { //navigation tem a função navigate pra navegarmos de uma tela pra outra e colocamos essa funçaõ no onePress do botão 
-    navigation.navigate('Points', { // enviamos uf e city como parâmetro pra tela
+  function handleNavigateToPoints() { 
+    //navigation tem a função navigate pra navegarmos de uma tela pra 
+    // outra e colocamos essa função no onePress do botão 
+    
+    // pesquisar no banco
+    // se o retorno for 0, aparecer mensagem de erro
+    // else navigate
+
+
+    navigation.navigate('Points', { 
+      // enviamos uf e city como parâmetro pra tela
       uf,
       city
     });  
@@ -62,7 +71,7 @@ const Home = () => {
                 autoCorrect={false}
                 onChangeText={setCity}
               />
-
+              
               <RectButton style={styles.button} onPress={handleNavigateToPoints} /* onPress = onClick*/> 
                 <View style ={styles.buttonIcon}>
                   <Text>

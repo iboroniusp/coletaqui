@@ -2,8 +2,7 @@ import { Request, Response } from 'express';
 import knex from '../database/connection';
 import { IPAddress } from '../../../UserIPAddress';
 
-/* Como tiramos isso do arquivo de rotas Não temos mais a identificação do formato do request e do response 
-Parameter 'request' has any tipe: precisamos informar manualmente (importamos Request e Response e informamos que request: Request (request é do tipo request) */
+
 class PointsController {
 
     /* ~ Listar Pontos de Coleta (Filtro por Cidade/Estado/items) ~ */ 
@@ -12,22 +11,29 @@ class PointsController {
 
         const parsedItems = String(items)
         .split(',')
-        .map(item => Number(item.trim())); // trim: remove espaçamento
+        .map(item => Number(item.trim())); 
         // Quando recebemos no query, fazemos um cast pra confirmar o formato que estamos recebendo String(a), Number(b)
-
 
         // JOIN: Filtro pra retornar os pontos que coletam itens específicos (join na tabela point_itens que possui essa relação)
         // WHEREIN: que tem pelo menos um item_id que esta dentro dos itens que estou recebendo no filtro (parsedItems)
-        // DISTINCT: se coletar todos os itens não vai aparecer duplicado
-        // SELECT('points.*'): quero buscar apenas todos os dados da tabela points, não da tabela que fiz join
 
-        const points = await knex('points')
-        .join('point_items', 'points.id', '=', 'point_items.point_id')
-        .whereIn('point_items.item_id', parsedItems)
-        .where('city', String(city))
-        .where('uf', String(uf))
-        .distinct()
-        .select('points.*') 
+        var points = null        
+        if (items == undefined){
+            points = await knex('points')
+            .where('city', String(city))
+            .where('uf', String(uf))
+            .distinct()
+            .select('points.*')
+        } else {
+            points = await knex('points')
+            .join('point_items', 'points.id', '=', 'point_items.point_id')
+            .whereIn('point_items.item_id', parsedItems)
+            .where('city', String(city))
+            .where('uf', String(uf))
+            .distinct()
+            .select('points.*')
+        }
+         
 
         // SERIALIZAÇÃO para permitir que o mobile acesse a imagem com o caminho 
         const serializedPoints = points.map(point => {

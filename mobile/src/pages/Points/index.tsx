@@ -24,7 +24,7 @@ interface Point {
   longitude: number;
 }
 
-// parâmetros sendo passados sobre o estado e cidade
+// é aqui que o se configura o que vamos receber de outra página
 interface Params {
   uf: string;
   city: string;
@@ -50,9 +50,8 @@ const Points = () => {
 
   const routeParams = route.params as Params; // definindo como variável de parametro pra rota 
 
-  /* BEL: MUDAR EM BAIXO, NÃO É NA LOCALIZAÇÃO DELE, MAS SIM NA CIDADE ESCOLHIDA */
-  /* DEFININDO O PONTO INICIAL DO MAPA COMO A LOCALIZAÇÃO DO USUÁRIO */
-  /*useEffect(() => {
+  
+  useEffect(() => {
     // criada para podermos utilizar ASYNC AWAIT
     async function loadPosition() {
       // Pedir permissões pro usuário para acessarmos a localização dele
@@ -76,9 +75,9 @@ const Points = () => {
 
     loadPosition();
   }, []);
-  */
-
-  /* MOSTRANDO TODOS OS ITENS DO LOCAL ESCOLHIDO 
+  
+  // MOSTRANDO TODOS OS PONTOS DE COLETA DO LOCAL ESCOLHIDO 
+  // vai ser executado assim que o componente renderizar
   useEffect(()=> {
     api.get('points', {
       params: {
@@ -86,9 +85,16 @@ const Points = () => {
         uf: routeParams.uf
       }
     }).then(response => { 
-      setPoints(response.data);
+      if (response.data.length == 0) {
+        Alert.alert('Não existe ponto de coleta cadastrado neste local :(');
+        handleNavigateBack();
+      } else {
+        setPoints(response.data);
+      }
+      
+      
     })
-  }, []); // toda vez que não houver nada selecionado*/
+  }, []);
 
   /* PEGANDO OS ITENS DA API */
   useEffect(() => {
@@ -97,8 +103,7 @@ const Points = () => {
       setItems(response.data);
     })
   }, []);
-  /* BEL: AQUI É PARA APARECER TODOS OS PONTOS SE NENHUM ITEM FOR SELECIONADO */
-  /* CARREGAR OS PONTOS DE COLETA */
+
   useEffect(()=> {
     api.get('points', {
       params: {
@@ -109,7 +114,7 @@ const Points = () => {
     }).then(response => { 
       setPoints(response.data);
     })
-  }, [selectedItems]); // toda vez que selecionar os itens
+  }, [selectedItems]); // esse efeito é disparado toda vez que selecionar os itens
 
   function handleSelectedItem(id: number) {
     // usuario clica num item
@@ -136,7 +141,7 @@ const Points = () => {
       <SafeAreaView style={{ flex: 1 }}>
           <View style={styles.container}>
               <TouchableOpacity onPress={handleNavigateBack}>
-                  <Icon name="arrow-left" size={20} color="#34cb79" />
+                  <Icon name="arrow-left" size={20} color="#d0273a" />
               </TouchableOpacity>
 
               <Text style={styles.title}>Olá!</Text>
@@ -157,8 +162,8 @@ const Points = () => {
                     initialRegion={{ 
                         latitude: initialPosition[0],
                         longitude: initialPosition[1],
-                        latitudeDelta: 20.014, // zoom
-                        longitudeDelta: 20.014,
+                        latitudeDelta: 5.014, // zoom
+                        longitudeDelta: 5.014,
                   }}>
                     {points.map(point => (
                       <Marker 
@@ -248,7 +253,7 @@ const styles = StyleSheet.create({
     mapMarkerContainer: {
       width: 90,
       height: 70,
-      backgroundColor: '#34CB79',
+      backgroundColor: '#d0273a',
       flexDirection: 'column',
       borderRadius: 8,
       overflow: 'hidden',
@@ -293,7 +298,7 @@ const styles = StyleSheet.create({
     },
   
     selectedItem: {
-      borderColor: '#34CB79',
+      borderColor: '#d0273a',
       borderWidth: 2,
     },
   
